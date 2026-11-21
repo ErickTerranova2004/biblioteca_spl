@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Búsqueda avanzada</h1>
+<p class="sub">Módulo opcional · activo porque ENABLE_ADVANCED_SEARCH = True</p>
+<div class="panel">
+  <form class="toolbar" method="get" style="flex-wrap:wrap">
+    <input name="autor" value="{{ f.autor }}" placeholder="Autor">
+    <select name="categoria"><option value="">Todas las categorías</option>
+      {% for c in categorias %}<option value="{{ c.id }}" {% if f.categoria == c.id|stringformat:"s" %}selected{% endif %}>{{ c.nombre }}</option>{% endfor %}</select>
+    <input name="desde" value="{{ f.desde }}" placeholder="Año desde" style="width:120px">
+    <input name="hasta" value="{{ f.hasta }}" placeholder="Año hasta" style="width:120px">
+    <label style="font-size:14px"><input type="checkbox" name="solo_disponibles" {% if f.solo_disponibles %}checked{% endif %}> Solo disponibles</label>
+    <button class="btn">Filtrar</button>
+  </form>
+  <table><tr><th>Título</th><th>Autor</th><th>Categoría</th><th>Año</th><th>Disp.</th></tr>
+  {% for l in libros %}<tr><td>{{ l.titulo }}</td><td>{{ l.autor }}</td><td>{{ l.categoria }}</td><td>{{ l.anio }}</td><td>{{ l.disponibles }}</td></tr>
+  {% empty %}<tr><td colspan="5">Sin resultados.</td></tr>{% endfor %}
+  </table>
+</div>
+{% endblock %}

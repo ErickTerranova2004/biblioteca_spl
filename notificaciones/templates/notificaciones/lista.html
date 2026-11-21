@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Notificaciones</h1>
+<p class="sub">Módulo opcional · activo porque ENABLE_NOTIFICATIONS = True</p>
+<div class="panel">
+  <form class="toolbar" method="post" action="{% url 'notificaciones:marcar_leidas' %}">{% csrf_token %}
+    <h2 style="margin:0">Avisos recientes</h2><div style="flex:1"></div><button class="btn g">Marcar todas como leídas</button></form>
+  <table><tr><th></th><th>Mensaje</th><th>Fecha</th></tr>
+  {% for n in notificaciones %}<tr><td>{% if not n.leida %}<span class="badge">Nueva</span>{% endif %}</td><td>{{ n.mensaje }}</td><td>{{ n.creada|date:"d/m/Y H:i" }}</td></tr>
+  {% empty %}<tr><td colspan="3">Sin notificaciones.</td></tr>{% endfor %}
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<div class="panel" style="max-width:420px;margin:60px auto">
+  <h1 style="text-align:center">📚 {{ producto.NOMBRE }}</h1>
+  <p class="sub" style="text-align:center">Variante {{ variante }} · Iniciar sesión</p>
+  <form method="post">{% csrf_token %}
+    {% if form.errors %}<p style="color:#b91c1c">Usuario o contraseña incorrectos.</p>{% endif %}
+    <p><input name="username" placeholder="Usuario" style="width:100%"></p>
+    <p><input type="password" name="password" placeholder="Contraseña" style="width:100%"></p>
+    <button class="btn" style="width:100%">Ingresar</button>
+  </form>
+</div>
+{% endblock %}

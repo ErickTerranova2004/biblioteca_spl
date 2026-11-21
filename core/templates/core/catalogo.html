@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Catálogo de libros</h1>
+<p class="sub">{{ libros|length }} título(s){% if q %} para «{{ q }}»{% endif %}</p>
+<div class="panel">
+  <form class="toolbar" method="get">
+    <input name="q" value="{{ q }}" placeholder="Buscar por título o autor" style="width:320px">
+    <button class="btn">Buscar</button>
+    <div style="flex:1"></div>
+    {% if mostrar_exportar %}
+      <a class="btn o" href="{% url 'reportes:pdf' %}{% if q %}?q={{ q|urlencode }}{% endif %}">⬇ Exportar PDF</a>
+      <a class="btn g" href="{% url 'reportes:csv' %}{% if q %}?q={{ q|urlencode }}{% endif %}">⬇ Exportar CSV</a>
+    {% endif %}
+  </form>
+  <table><tr><th>Título</th><th>Autor</th><th>Categoría</th><th>Año</th><th>ISBN</th><th>Disp.</th></tr>
+  {% for l in libros %}<tr><td>{{ l.titulo }}</td><td>{{ l.autor }}</td><td>{{ l.categoria }}</td><td>{{ l.anio }}</td><td>{{ l.isbn }}</td><td>{{ l.disponibles }}</td></tr>
+  {% empty %}<tr><td colspan="6">No se encontraron libros.</td></tr>{% endfor %}
+  </table>
+</div>
+{% endblock %}

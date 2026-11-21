@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h1>Bienvenido, {{ user.first_name|default:user.username }}</h1>
+<p class="sub">Panel principal de {{ producto.NOMBRE }}</p>
+<div class="cards">
+  <div class="card"><div class="n">{{ total_libros }}</div><div class="l">Títulos registrados</div></div>
+  <div class="card"><div class="n">{{ total_ejemplares }}</div><div class="l">Ejemplares disponibles</div></div>
+  <div class="card"><div class="n">{{ total_categorias }}</div><div class="l">Categorías</div></div>
+</div>
+<div class="panel">
+  <h2>Características de esta variante</h2>
+  <div class="feat">
+    <span class="chip on">✔ Catálogo y búsqueda simple</span>
+    <span class="chip on">✔ Autenticación de usuarios</span>
+    <span class="chip on">✔ Panel administrativo</span>
+    <span class="chip {% if features.ENABLE_REPORTS %}on{% else %}off{% endif %}">{% if features.ENABLE_REPORTS %}✔{% else %}✖{% endif %} Exportar reportes</span>
+    <span class="chip {% if features.ENABLE_NOTIFICATIONS %}on{% else %}off{% endif %}">{% if features.ENABLE_NOTIFICATIONS %}✔{% else %}✖{% endif %} Notificaciones</span>
+    <span class="chip {% if features.ENABLE_ADVANCED_SEARCH %}on{% else %}off{% endif %}">{% if features.ENABLE_ADVANCED_SEARCH %}✔{% else %}✖{% endif %} Búsqueda avanzada</span>
+  </div>
+</div>
+<div class="panel">
+  <h2>Últimos libros registrados</h2>
+  <table><tr><th>Título</th><th>Autor</th><th>Categoría</th><th>Año</th></tr>
+  {% for l in recientes %}<tr><td>{{ l.titulo }}</td><td>{{ l.autor }}</td><td>{{ l.categoria }}</td><td>{{ l.anio }}</td></tr>{% endfor %}
+  </table>
+</div>
+{% endblock %}
